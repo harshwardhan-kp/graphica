@@ -3,7 +3,6 @@ import { db } from '../firebase';
 import { collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from 'firebase/firestore';
 import { adjectives, nouns } from '../data/anonymousNames';
 
-// Function to get or create an anonymous name
 const getAnonymousName = () => {
   let name = localStorage.getItem('anonymousName');
   if (!name) {
@@ -34,7 +33,6 @@ const ForkChan = () => {
     return () => unsubscribe();
   }, []);
 
-  // Auto-scroll to the bottom when messages change
   useEffect(() => {
     if (messagesContainerRef.current) {
       messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;

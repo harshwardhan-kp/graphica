@@ -22,14 +22,13 @@ body {
 
 
 .app-container.sky-mode {
-  /* Keep normal left column width in Sky mode */
   grid-template-columns: 240px 1fr;
   max-width: none; 
 }
 .app-container.sky-mode .right-column {
   display: none !important;
 }
-/* Remove compact left column overrides in Sky mode so it matches other sections */
+
 
 .left-column, .middle-column, .right-column {
   padding: 12px;
@@ -316,20 +315,19 @@ h1 {
   background: #333;
 }
 
-/* ForkChan banner */
+
 .forkchan-banner {
   border: 1px solid #000;
   padding: 10px 12px;
-  background: #fff4f4; /* subtle warm tone */
+  background: #fff4f4;
   color: #000;
   letter-spacing: 1px;
-  text-align: center;        /* center the text */
-  box-sizing: border-box;    /* include padding/border in width */
-  width: 100%;               /* avoid overflow inside nav */
-  overflow-wrap: anywhere;   /* prevent long strings from overflowing */
+  text-align: center;
+  box-sizing: border-box;
+  width: 100%;
+  overflow-wrap: anywhere;
 }
 
-/* Home feed styles */
 .home-feed {
   display: flex;
   flex-direction: column;
