@@ -1,10 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebase';
 import { collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from 'firebase/firestore';
+import { adjectives, nouns } from '../data/anonymousNames';
+
+// Function to get or create an anonymous name
+const getAnonymousName = () => {
+  let name = localStorage.getItem('anonymousName');
+  if (!name) {
+    const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+    const noun = nouns[Math.floor(Math.random() * nouns.length)];
+    name = `${adj} ${noun}`;
+    localStorage.setItem('anonymousName', name);
+  }
+  return name;
+};
 
 const ForkChan = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const [senderName] = useState(getAnonymousName());
 
   useEffect(() => {
     const q = query(collection(db, 'messages'), orderBy('createdAt'));
@@ -25,6 +39,7 @@ const ForkChan = () => {
 
     await addDoc(collection(db, 'messages'), {
       text: newMessage,
+      senderName: senderName,
       createdAt: serverTimestamp(),
     });
 
@@ -36,6 +51,7 @@ const ForkChan = () => {
       <div className="messages-container">
         {messages.map((message) => (
           <div key={message.id} className="message">
+            <strong>{message.senderName || 'Anonymous'}:</strong>
             <p>{message.text}</p>
           </div>
         ))}
@@ -45,7 +61,7 @@ const ForkChan = () => {
           type="text"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
-          placeholder="Type your message..."
+          placeholder={`Chatting as ${senderName}...`}
         />
         <button type="submit">Send</button>
       </form>
