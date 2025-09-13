@@ -10,8 +10,8 @@ import { CLUBS, clubImageSrc } from './data/clubs.js';
 import { SKY_IMAGES } from './data/sky.js';
 
 function App() {
-  const navItems = ['Nest', 'Sky', 'Chats', 'Barter', 'Insights'];
-  const [activeNav, setActiveNav] = useState(navItems[0]);
+  const navItems = ['Home', 'Nest', 'Sky', 'Chats', 'Barter', 'Insights'];
+  const [activeNav, setActiveNav] = useState('Home');
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -19,11 +19,18 @@ function App() {
   useEffect(() => {
     if (location.pathname.startsWith('/nest')) setActiveNav('Nest');
     else if (location.pathname.startsWith('/sky')) setActiveNav('Sky');
-    else if (location.pathname === '/') setActiveNav(navItems[0]);
+    else if (location.pathname === '/') setActiveNav('Home');
   }, [location.pathname]);
 
   const isSky = location.pathname.startsWith('/sky');
   const isHome = location.pathname === '/';
+
+  // If no specific route is active, redirect to home
+  useEffect(() => {
+    if (location.pathname === '/' && activeNav !== 'Home') {
+      setActiveNav('Home');
+    }
+  }, [location.pathname]);
 
   return (
     <div className={`app-container ${isSky ? 'sky-mode' : ''} ${isHome ? 'home-mode' : ''}`}>
@@ -40,19 +47,25 @@ function App() {
                   className={`nav-item ${activeNav === label ? 'active' : ''}`}
                   onClick={() => {
                     setActiveNav(label);
-                    if (label === 'Nest') navigate('/nest');
-                    if (label === 'Sky') navigate('/sky');
+                    if (label === 'Home') navigate('/');
+                    else if (label === 'Nest') navigate('/nest');
+                    else if (label === 'Sky') navigate('/sky');
                   }}
                 >
                   {isSky ? label.charAt(0) : label}
                 </button>
               </li>
             ))}
+            <li>
+              <button 
+                className={`nav-item ${activeNav === 'Fork Chan' ? 'active' : ''}`}
+                onClick={() => setActiveNav('Fork Chan')}
+              >
+                Fork Chan
+              </button>
+            </li>
           </ul>
         </nav>
-        <button className="forkchan" aria-label="Fork Chan">
-          Fork Chan
-        </button>
       </aside>
 
       <main className="middle-column">

@@ -16,13 +16,16 @@ body {
 /* Main layout: three columns like Instagram */
 .app-container {
   display: grid;
-  grid-template-columns: 200px 1fr 300px; /* nav | content | search */
+  grid-template-columns: 240px 1fr 240px; /* equal width side columns */
   min-height: 100vh;
+  max-width: 1920px; /* prevent excessive stretching on ultra-wide screens */
+  margin: 0 auto; /* center on very wide screens */
 }
 
 /* Sky mode: compress navigation and make more room for photos */
 .app-container.sky-mode {
   grid-template-columns: 72px 1fr; /* narrow left, full middle */
+  max-width: none; /* allow full width in sky mode */
 }
 .app-container.sky-mode .right-column {
   display: none !important;
@@ -129,29 +132,7 @@ body {
   color: #fff;
 }
 
-/* Fork Chan – special bottom section */
-.forkchan {
-  margin: 0; /* no outer margin */
-  margin-top: auto; /* push to bottom */
-  width: calc(100% + 12px); /* bleed over left padding */
-  transform: translateX(-12px); /* align to column edge */
-  border: 1px solid #000;
-  border-left-width: 0; /* merge with vertical border */
-  border-right-width: 0; /* full-bleed look */
-  padding: 14px 16px;
-  background: #efefef;
-  cursor: pointer;
-  text-align: left;
-  font-family: monospace;
-  text-transform: uppercase;
-}
-.forkchan:hover {
-  background: #e6e6e6;
-}
-.forkchan:active {
-  background: #000;
-  color: #fff;
-}
+
 
 .stories {
   display: flex;
