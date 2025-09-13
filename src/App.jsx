@@ -8,6 +8,7 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { CLUBS, clubImageSrc } from './data/clubs.js';
 import { SKY_IMAGES } from './data/sky.js';
+import ForkChan from './pages/ForkChan.jsx';
 
 function App() {
   const navItems = ['Home', 'Nest', 'Sky', 'Chats', 'Barter', 'Insights'];
@@ -19,6 +20,7 @@ function App() {
   useEffect(() => {
     if (location.pathname.startsWith('/nest')) setActiveNav('Nest');
     else if (location.pathname.startsWith('/sky')) setActiveNav('Sky');
+    else if (location.pathname.startsWith('/fork-chan')) setActiveNav('Fork Chan');
     else if (location.pathname === '/') setActiveNav('Home');
   }, [location.pathname]);
 
@@ -59,7 +61,10 @@ function App() {
             <li>
               <button 
                 className={`nav-item ${activeNav === 'Fork Chan' ? 'active' : ''}`}
-                onClick={() => setActiveNav('Fork Chan')}
+                onClick={() => {
+                  setActiveNav('Fork Chan');
+                  navigate('/fork-chan');
+                }}
               >
                 Fork Chan
               </button>
@@ -105,6 +110,7 @@ function App() {
           />
           <Route path="/nest" element={<NestPage />} />
           <Route path="/sky" element={<SkyPage />} />
+          <Route path="/fork-chan" element={<ForkChan />} />
         </Routes>
       </main>
 
