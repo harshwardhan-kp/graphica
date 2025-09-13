@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { db } from '../firebase';
 import { collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from 'firebase/firestore';
 import { adjectives, nouns } from '../data/anonymousNames';
@@ -19,6 +19,7 @@ const ForkChan = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [senderName] = useState(getAnonymousName());
+  const messagesContainerRef = useRef(null);
 
   useEffect(() => {
     const q = query(collection(db, 'messages'), orderBy('createdAt'));
@@ -32,6 +33,13 @@ const ForkChan = () => {
 
     return () => unsubscribe();
   }, []);
+
+  // Auto-scroll to the bottom when messages change
+  useEffect(() => {
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -48,7 +56,7 @@ const ForkChan = () => {
 
   return (
     <div className="fork-chan-container">
-      <div className="messages-container">
+      <div className="messages-container" ref={messagesContainerRef}>
         {messages.map((message) => (
           <div key={message.id} className="message">
             <strong>{message.senderName || 'Anonymous'}:</strong>
