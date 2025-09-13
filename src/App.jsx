@@ -9,14 +9,7 @@ import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { CLUBS, clubImageSrc } from './data/clubs.js';
 import { SKY_IMAGES } from './data/sky.js';
 
-// Words that animate in the hero section's "SHARE YOUR ___" text
-const words = ['STORIES', 'MOMENTS', 'MEMORIES', 'IDEAS'];
-
 function App() {
-  const [typeText, setTypeText] = useState('');
-  const [wordIndex, setWordIndex] = useState(0);
-  const [letterIndex, setLetterIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
   const navItems = ['Nest', 'Sky', 'Chats', 'Barter', 'Insights'];
   const [activeNav, setActiveNav] = useState(navItems[0]);
   const navigate = useNavigate();
@@ -28,30 +21,6 @@ function App() {
     else if (location.pathname.startsWith('/sky')) setActiveNav('Sky');
     else if (location.pathname === '/') setActiveNav(navItems[0]);
   }, [location.pathname]);
-
-  useEffect(() => {
-    const type = () => {
-      const currentWord = words[wordIndex];
-      if (isDeleting) {
-        setTypeText(currentWord.substring(0, letterIndex - 1));
-        setLetterIndex(letterIndex - 1);
-        if (letterIndex - 1 === 0) {
-          setIsDeleting(false);
-          setWordIndex((wordIndex + 1) % words.length);
-        }
-      } else {
-        setTypeText(currentWord.substring(0, letterIndex + 1));
-        setLetterIndex(letterIndex + 1);
-        if (letterIndex + 1 === currentWord.length) {
-          setIsDeleting(true);
-          setTimeout(type, 1500);
-          return;
-        }
-      }
-    };
-    const timeout = setTimeout(type, isDeleting ? 100 : 200);
-    return () => clearTimeout(timeout);
-  }, [letterIndex, isDeleting, wordIndex]);
 
   const isSky = location.pathname.startsWith('/sky');
   const isHome = location.pathname === '/';
@@ -116,7 +85,7 @@ function App() {
                 <h1>
                   SHARE YOUR
                   <br />
-                  <span id="type-text">{typeText}</span>
+                  <span id="type-text">IDEAS</span>
                 </h1>
               </div>
             }
