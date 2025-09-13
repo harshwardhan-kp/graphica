@@ -40,8 +40,10 @@ body {
 .app-container.home-mode .right-column {
   background: #fff;
 }
-.app-container.sky-mode .middle-column {
+.middle-column {
   overflow: auto;
+  height: 100vh;           
+  align-self: start;       
 }
 
 .left-column, .middle-column {
@@ -53,9 +55,9 @@ body {
 }
 
 
-.app-container.sky-mode .left-column .nav,
-.app-container.sky-mode .middle-column .nav,
-.app-container.sky-mode .right-column .nav {
+.left-column .nav,
+.middle-column .nav,
+.right-column .nav {
   position: sticky;
   top: 0;
   background: #fff;
@@ -63,8 +65,16 @@ body {
 }
 
 
-.app-container.sky-mode .middle-column .nav {
+.middle-column .nav {
   animation: floatIn 400ms ease-out;
+}
+
+.left-column,
+.right-column {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  align-self: start;     
 }
 
 @keyframes floatIn {
@@ -171,7 +181,6 @@ h1 {
   margin-top: 8px;
 }
 
-/* Nest page */
 .nest-header {
   text-align: left;
   border-bottom: 1px solid #000;
