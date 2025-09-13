@@ -34,7 +34,7 @@ function App() {
     <div className={`app-container ${isSky ? 'sky-mode' : ''} ${isHome ? 'home-mode' : ''}`}>
       <aside className="left-column">
         <div className="nav">
-          <div className="logo">BRAND</div>
+          <div className="logo">THE NEST</div>
         </div>
         <nav className="side-nav" aria-label="Primary">
           <ul>

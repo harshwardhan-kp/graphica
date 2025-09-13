@@ -75,9 +75,9 @@ body {
 .logo {
   font-weight: bold;
   font-size: 24px;
+  text-align: center;
 }
 
-/* Side navigation */
 .side-nav {
   padding-top: 12px;
 }
@@ -192,6 +192,7 @@ h1 {
   column-gap: 12px;
   row-gap: 8px;
   align-items: start;
+  background-color: white;
 }
 .card .avatar {
   grid-row: 1 / span 2;
