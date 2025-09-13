@@ -1,9 +1,3 @@
-// This is our main app component that handles routing and layout
-// It shows a three-column design (like Instagram) with:
-// - Left: Navigation and branding
-// - Middle: Main content (hero, Nest, or Sky pages)
-// - Right: Search and future features
-
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { CLUBS, clubImageSrc } from './data/clubs.js';
@@ -16,7 +10,7 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Keep active state in sync with route
+
   useEffect(() => {
     if (location.pathname.startsWith('/nest')) setActiveNav('Nest');
     else if (location.pathname.startsWith('/sky')) setActiveNav('Sky');
@@ -27,7 +21,7 @@ function App() {
   const isSky = location.pathname.startsWith('/sky');
   const isHome = location.pathname === '/';
 
-  // If no specific route is active, redirect to home
+
   useEffect(() => {
     if (location.pathname === '/' && activeNav !== 'Home') {
       setActiveNav('Home');
@@ -36,7 +30,6 @@ function App() {
 
   return (
     <div className={`app-container ${isSky ? 'sky-mode' : ''} ${isHome ? 'home-mode' : ''}`}>
-      {/* Persistent three columns so vertical borders are continuous */}
       <aside className="left-column">
         <div className="nav">
           <div className="logo">BRAND</div>
@@ -120,7 +113,6 @@ function App() {
             <input type="text" placeholder="SEARCH" />
           </div>
         </div>
-        {/* Right column content can go here later */}
       </aside>
     </div>
   );
@@ -128,21 +120,15 @@ function App() {
 
 export default App;
 
-// The Nest page shows all official college clubs in a grid
-// Each club has its profile picture, name, and a handle (@name)
 function NestPage() {
-  // Use all clubs from our list
   const clubs = CLUBS;
 
-  // Convert a club name into a clean social media handle
-  // Example: "Culture board" → "cultureboard"
   const handleFromName = (name) =>
     name
       .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '') // keep only lowercase letters and numbers
+      .replace(/[^a-z0-9]+/g, '')
       .replace(/^_+|_+$/g, '');
 
-  // Create an inline SVG as a fallback if a club's profile image fails to load
   const placeholder =
     'data:image/svg+xml;utf8,' +
     encodeURIComponent(
@@ -184,8 +170,6 @@ function NestPage() {
   );
 }
 
-// The Sky page is like Instagram's Explore tab
-// It shows a grid of all photos from club folders (except profile pictures)
 function SkyPage() {
   return (
     <section className="sky">
@@ -194,7 +178,6 @@ function SkyPage() {
         <p className="subtitle">EXPLORE EVERYTHING</p>
       </header>
       <div className="sky-grid">
-        {/* Show each photo in a square cell, cropped to fit */}
         {SKY_IMAGES.map((src, i) => (
           <div key={i} className="sky-cell">
             <img src={src} alt={`post ${i + 1}`} />
