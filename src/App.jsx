@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { CLUBS, clubImageSrc } from './data/clubs.js';
 import { SKY_IMAGES } from './data/sky.js';
+import HomeFeed from './components/HomeFeed.jsx';
 import ForkChan from './pages/ForkChan.jsx';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
 
   const isSky = location.pathname.startsWith('/sky');
   const isHome = location.pathname === '/';
+  const isForkChan = location.pathname.startsWith('/fork-chan');
 
 
   useEffect(() => {
@@ -47,7 +49,7 @@ function App() {
                     else if (label === 'Sky') navigate('/sky');
                   }}
                 >
-                  {isSky ? label.charAt(0) : label}
+                  {label}
                 </button>
               </li>
             ))}
@@ -68,39 +70,33 @@ function App() {
 
       <main className="middle-column">
         <div className="nav">
-          <div className="stories" aria-label="Club profiles">
-            {CLUBS.map((name) => (
-              <button
-                key={name}
-                className="story"
-                title={name}
-                onClick={() => navigate('/nest')}
-              >
-                <img
-                  src={clubImageSrc(name)}
-                  alt={`${name} profile`}
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                  }}
-                />
-              </button>
-            ))}
-          </div>
+          {isForkChan ? (
+            <div className="forkchan-banner" role="note" aria-live="polite">
+              <strong>Don't Stay here, If you can't handle the Heat!!!</strong>
+            </div>
+          ) : (
+            <div className="stories" aria-label="Club profiles">
+              {CLUBS.map((name) => (
+                <button
+                  key={name}
+                  className="story"
+                  title={name}
+                  onClick={() => navigate('/nest')}
+                >
+                  <img
+                    src={clubImageSrc(name)}
+                    alt={`${name} profile`}
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <div className="hero">
-                <p className="subtitle">FOR THE COLLEGE, BY THE COLLEGE</p>
-                <h1>
-                  SHARE YOUR
-                  <br />
-                  <span id="type-text">IDEAS</span>
-                </h1>
-              </div>
-            }
-          />
+          <Route path="/" element={<HomeFeed />} />
           <Route path="/nest" element={<NestPage />} />
           <Route path="/sky" element={<SkyPage />} />
           <Route path="/fork-chan" element={<ForkChan />} />
