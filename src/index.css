@@ -1,0 +1,287 @@
+:root {
+  font-family: monospace;
+  text-transform: uppercase;
+}
+
+body {
+  margin: 0;
+  background-color: #fff;
+  color: #000;
+  background-image: linear-gradient(rgba(0,0,0,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.app-container {
+  display: grid;
+  grid-template-columns: 200px 1fr 300px;
+  min-height: 100vh;
+}
+
+/* Sky mode: compress left, hide right */
+.app-container.sky-mode {
+  grid-template-columns: 72px 1fr; /* narrow left, full middle */
+}
+.app-container.sky-mode .right-column {
+  display: none !important;
+}
+.app-container.sky-mode .left-column {
+  padding: 8px; /* tighter */
+}
+.app-container.sky-mode .logo {
+  font-size: 16px;
+}
+.app-container.sky-mode .side-nav ul {
+  gap: 6px;
+}
+.app-container.sky-mode .side-nav .nav-item {
+  padding: 10px 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+.app-container.sky-mode .forkchan {
+  width: 100%;
+  transform: none;
+  border-left-width: 1px;
+  border-right-width: 1px;
+}
+
+.left-column, .middle-column, .right-column {
+  padding: 12px; /* tighter spacing */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Remove grid background in left and right columns on the landing page only */
+.app-container.home-mode .left-column,
+.app-container.home-mode .right-column {
+  background: #fff; /* paint over body grid */
+}
+.app-container.sky-mode .middle-column {
+  overflow: auto; /* allow scroll while header is sticky */
+}
+
+.left-column, .middle-column {
+  border-right: 1px solid #000; /* continuous vertical bars */
+}
+.nav {
+  padding: 8px 0 10px;
+  border-bottom: 1px solid #000; /* single continuous header line across columns */
+}
+
+/* Sticky header rows specifically during Sky mode */
+.app-container.sky-mode .left-column .nav,
+.app-container.sky-mode .middle-column .nav,
+.app-container.sky-mode .right-column .nav {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 10;
+}
+
+/* Subtle float animation when entering Sky */
+.app-container.sky-mode .middle-column .nav {
+  animation: floatIn 400ms ease-out;
+}
+
+@keyframes floatIn {
+  from { transform: translateY(-8px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+/* Side navigation */
+.side-nav {
+  padding-top: 12px;
+}
+.side-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.side-nav .nav-item {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 1px solid #000;
+  padding: 10px 12px;
+  cursor: pointer;
+  font-family: monospace;
+  text-transform: uppercase;
+}
+.side-nav .nav-item:hover {
+  background: #f4f4f4;
+}
+.side-nav .nav-item.active {
+  background: #000;
+  color: #fff;
+}
+
+/* Fork Chan – special bottom section */
+.forkchan {
+  margin: 0; /* no outer margin */
+  margin-top: auto; /* push to bottom */
+  width: calc(100% + 12px); /* bleed over left padding */
+  transform: translateX(-12px); /* align to column edge */
+  border: 1px solid #000;
+  border-left-width: 0; /* merge with vertical border */
+  border-right-width: 0; /* full-bleed look */
+  padding: 14px 16px;
+  background: #efefef;
+  cursor: pointer;
+  text-align: left;
+  font-family: monospace;
+  text-transform: uppercase;
+}
+.forkchan:hover {
+  background: #e6e6e6;
+}
+.forkchan:active {
+  background: #000;
+  color: #fff;
+}
+
+.stories {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+}
+
+.story {
+  width: 60px;
+  height: 60px;
+  border: 1px solid #000;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar input {
+  width: 100%;
+  background: transparent;
+  border: 1px solid #000;
+  padding: 8px;
+  font-family: monospace;
+  text-transform: uppercase;
+}
+
+.hero {
+  text-align: center;
+  padding: 80px 0;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #888;
+}
+
+h1 {
+  font-size: 60px;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+#type-text {
+  border: 2px solid #000;
+  padding: 0 10px;
+  display: inline-block;
+}
+
+/* Nest page */
+.nest-header {
+  text-align: left;
+  border-bottom: 1px solid #000;
+  padding-bottom: 10px;
+  margin-bottom: 16px;
+}
+.nest-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+.card {
+  border: 1px solid #000;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 96px 1fr; /* avatar column + content column */
+  grid-auto-rows: min-content;
+  column-gap: 12px;
+  row-gap: 8px;
+  align-items: start;
+}
+.card .avatar {
+  grid-row: 1 / span 2; /* occupy head space */
+  grid-column: 1;
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border: 1px solid #000;
+  border-radius: 6px;
+}
+.card-head {
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+}
+.card h3 {
+  margin: 0;
+  font-size: 18px;
+}
+.card-foot {
+  grid-column: 1 / -1; /* full width footer */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #000;
+  padding-top: 8px;
+}
+.card .handle {
+  margin: 0;
+  color: #666;
+  font-size: 12px;
+}
+.view-btn {
+  background: transparent;
+  border: 1px solid #000;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+.view-btn:hover { background: #f4f4f4; }
+
+/* Sky (Explore) */
+.sky-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.sky .sky-grid {
+  max-width: 960px; /* center content in middle for better focus */
+  margin: 12px auto;
+}
+.sky-cell {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1; /* perfect square */
+  border: 1px solid #000;
+  overflow: hidden;
+}
+.sky-cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* crop without stretch */
+  display: block;
+}
