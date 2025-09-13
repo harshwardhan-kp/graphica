@@ -2,19 +2,15 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
-  measurementId: "YOUR_MEASUREMENT_ID"
+  apiKey: "AIzaSyANta1w3R8ZUNc1Vlg_5baypALhDOAjyms",
+  authDomain: "graphicafirebase.firebaseapp.com",
+  projectId: "graphicafirebase",
+  storageBucket: "graphicafirebase.appspot.com",
+  messagingSenderId: "1085055488692",
+  appId: "1:1085055488692:web:266a2a06a7af448d24fde1",
+  measurementId: "G-4L02B05S7N"
 };
 
 // Initialize Firebase
